@@ -26,18 +26,18 @@ AuthorSchema.virtual("name").get(function () {
 AuthorSchema.virtual("lifespan").get(function () {
   let lifetime_string = "";
   if (this.date_of_birth) {
-    lifetime_string = this.date_of_birth.getYear().toString();
+    lifetime_string = this.due_back_formatted_birth;
   }
   lifetime_string += " - ";
   if (this.date_of_death) {
-    lifetime_string += this.date_of_death.getYear();
+    lifetime_string += this.due_back_formatted_death;
   }
   return lifetime_string;
 });
 
 // Virtual for author's URL
 AuthorSchema.virtual("url").get(function () {
-  return "/catalog/author" + this._id;
+  return "/catalog/author/" + this._id;
 });
 
 AuthorSchema.virtual("due_back_formatted_birth").get(function () {
