@@ -1,0 +1,1 @@
+GET http://localhost:3000/catalog/bookinstance/61f7659467520f5bf1bde92f/update
