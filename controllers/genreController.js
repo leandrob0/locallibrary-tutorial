@@ -153,13 +153,9 @@ exports.genre_delete_post = function (req, res) {
         });
         return;
       } else {
-        Genre.findByIdAndRemove(req.body.genreid, function deleteGenre(err) {
-          if (err) {
-            return next(err);
-          }
-          // Success, go to genre's list
-          res.redirect("/catalog/genres");
-        });
+        Genre.findByIdAndRemove(req.body.genreid)
+          .then(() => res.redirect("/catalog/genres"))
+          .catch(next)
       }
     }
   );
@@ -196,10 +192,9 @@ exports.genre_update_post = [
       // If there are errors. re render the page with the errors messages and the value inserted.
       res.render('genre_form', {title: 'Update genre', genre: genre, errors: errors.array()});
     } else {
-      Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, genre) => {
-        if(err) return next(err);
-        res.redirect(genre.url);
-      })
+      Genre.findByIdAndUpdate(req.params.id, genre, {})
+        .then(genre => res.redirect(genre.url))
+        .catch(next)
     }
   }
 ]
