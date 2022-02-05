@@ -52,5 +52,15 @@ AuthorSchema.virtual("due_back_formatted_death").get(function () {
     : "";
 });
 
+AuthorSchema.virtual("format_date_form_birth").get(function (){
+  if(this.date_of_birth == undefined) return '';
+  return this.date_of_birth.toISOString().split('T')[0]
+})
+
+AuthorSchema.virtual("format_date_form_death").get(() => {
+  if(this.date_of_death == undefined) return '';
+  return this.date_of_death.toISOString().split('T')[0]
+})
+
 // Export model
 module.exports = mongoose.model("Author", AuthorSchema);
